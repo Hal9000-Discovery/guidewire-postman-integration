@@ -1,0 +1,521 @@
+{
+	"info": {
+		"_postman_id": "4ad604d6-9b5e-4f76-ba70-8782826e26f3",
+		"name": "_BillingCenter_Mock_Server",
+		"description": "Mock server for Guidewire BillingCenter APIs used by PolicyCenter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45937416",
+		"_collection_link": "https://r2d244.postman.co/workspace/-BCAA_API_Tests~acfc4e35-364f-40e2-b533-490117a2f66b/collection/45937416-4ad604d6-9b5e-4f76-ba70-8782826e26f3?action=share&source=collection_link&creator=45937416"
+	},
+	"item": [
+		{
+			"name": "01_Accounts",
+			"item": [
+				{
+					"name": "v1 POST Create Billing Account - Success",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{bc_mock_base_url}}/v1/billing/accounts",
+							"host": [
+								"{{bc_mock_base_url}}"
+							],
+							"path": [
+								"v1",
+								"billing",
+								"accounts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 - Billing Account Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{bc_mock_base_url}}/v1/billing/accounts",
+									"host": [
+										"{{bc_mock_base_url}}"
+									],
+									"path": [
+										"v1",
+										"billing",
+										"accounts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n  \"accountId\": \"BC12345\",\r\n  \"status\": \"Active\",\r\n  \"currency\": \"CAD\"\r\n}\r\n"
+						}
+					]
+				},
+				{
+					"name": "v1 GET Billing Account - Success",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bc_mock_base_url}}/v1/billing/accounts/BC12345",
+							"host": [
+								"{{bc_mock_base_url}}"
+							],
+							"path": [
+								"v1",
+								"billing",
+								"accounts",
+								"BC12345"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "v1 - 200 - Billing Account Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "/v1/billing/accounts/BC12345",
+									"path": [
+										"v1",
+										"billing",
+										"accounts",
+										"BC12345"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"accountId\": \"BC12345\",\n  \"policies\": [\"PA1234567\"],\n  \"balance\": 1200.00,\n  \"status\": \"Active\"\n}"
+						}
+					]
+				},
+				{
+					"name": "v2 GET Billing Account - Success",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bc_mock_base_url}}/v2/billing/accounts/BC12346",
+							"host": [
+								"{{bc_mock_base_url}}"
+							],
+							"path": [
+								"v2",
+								"billing",
+								"accounts",
+								"BC12346"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "v2 - 200 - Billing Account Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "/v2/billing/accounts/BC12346",
+									"path": [
+										"v2",
+										"billing",
+										"accounts",
+										"BC12346"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"accountId\": \"BC12346\",\n  \"policyNumbers\": [\"PA1234567\"],\n  \"outstandingBalance\": 1200.00,\n  \"accountStatus\": \"ACTIVE\",\n  \"currency\": \"CAD\"\n}\n"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "02_Invoices",
+			"item": [
+				{
+					"name": "v1 GET Invoices for an Account - Success",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bc_mock_base_url}}/v1/billing/accounts/BC12345/invoices",
+							"host": [
+								"{{bc_mock_base_url}}"
+							],
+							"path": [
+								"v1",
+								"billing",
+								"accounts",
+								"BC12345",
+								"invoices"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "v1 - 200 - Invoices Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{bc_mock_base_url}}/v1/billing/accounts/BC12345/invoices",
+									"host": [
+										"{{bc_mock_base_url}}"
+									],
+									"path": [
+										"v1",
+										"billing",
+										"accounts",
+										"BC12345",
+										"invoices"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "[\r\n  {\r\n    \"invoiceId\": \"INV10001\",\r\n    \"amount\": 1200.00,\r\n    \"dueDate\": \"2026-02-01\",\r\n    \"status\": \"DUE\"\r\n  }\r\n]\r\n"
+						}
+					]
+				},
+				{
+					"name": "v1 GET Invoice by ID - Success",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bc_mock_base_url}}/v1/billing/invoices/INV10001",
+							"host": [
+								"{{bc_mock_base_url}}"
+							],
+							"path": [
+								"v1",
+								"billing",
+								"invoices",
+								"INV10001"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "v1 - 200 - Specific Invoice Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "/v1/billing/invoices/INV10001",
+									"path": [
+										"v1",
+										"billing",
+										"invoices",
+										"INV10001"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n  \"invoiceId\": \"INV10001\",\r\n  \"amount\": 1200.00,\r\n  \"status\": \"DUE\"\r\n}\r\n"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "03_Payments",
+			"item": [
+				{
+					"name": "v1 POST Payment - Success",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{bc_mock_base_url}}/v1/billing/payments",
+							"host": [
+								"{{bc_mock_base_url}}"
+							],
+							"path": [
+								"v1",
+								"billing",
+								"payments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "v1 - 200 - Payment Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{bc_mock_base_url}}/v1/billing/payments",
+									"host": [
+										"{{bc_mock_base_url}}"
+									],
+									"path": [
+										"v1",
+										"billing",
+										"payments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\r\n  \"paymentId\": \"PAY90001\",\r\n  \"invoiceId\": \"INV10001\",\r\n  \"status\": \"POSTED\"\r\n}\r\n"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "04_Balance",
+			"item": [
+				{
+					"name": "v1 GET Account Balance - Paid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bc_mock_base_url}}/v1/billing/accounts/BC12345/balance",
+							"host": [
+								"{{bc_mock_base_url}}"
+							],
+							"path": [
+								"v1",
+								"billing",
+								"accounts",
+								"BC12345",
+								"balance"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "v1 - 200 - Account status paid",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "/v1/billing/accounts/BC12345/balance",
+									"path": [
+										"v1",
+										"billing",
+										"accounts",
+										"BC12345",
+										"balance"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n  \"accountId\": \"BC12345\",\r\n  \"balance\": 0.00,\r\n  \"status\": \"PAID\"\r\n}\r\n"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "99_Failure_Scenarios",
+			"item": [
+				{
+					"name": "v1 GET Invoices - Invoice Service Down",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": [
+						{
+							"name": "v1 - 503 - Invoice Service Down",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n  \"errorCode\": \"INVOICE_SERVICE_DOWN\",\r\n  \"message\": \"Invoice service unavailable\"\r\n}\r\n"
+						}
+					]
+				},
+				{
+					"name": "v1 GET Billing Account - BC Down",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bc_mock_base_url}}/v1/billing/accounts/BC_DOWN",
+							"host": [
+								"{{bc_mock_base_url}}"
+							],
+							"path": [
+								"v1",
+								"billing",
+								"accounts",
+								"BC_DOWN"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "v1 - 503 - BillingCenter Unavailable",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "/v1/billing/accounts/BC_DOWN",
+									"path": [
+										"v1",
+										"billing",
+										"accounts",
+										"BC_DOWN"
+									]
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errorCode\": \"BC_UNAVAILABLE\",\n  \"message\": \"BillingCenter service is currently unavailable\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Billing Account - Invalid Schema",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bc_mock_base_url}}/billing/accounts/BC_INVALID",
+							"host": [
+								"{{bc_mock_base_url}}"
+							],
+							"path": [
+								"billing",
+								"accounts",
+								"BC_INVALID"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Invalid Contract",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "/billing/accounts/BC_INVALID",
+									"path": [
+										"billing",
+										"accounts",
+										"BC_INVALID"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"accountId\": \"BC_INVALID\",\n  \"balance\": 1200.00\n}"
+						}
+					]
+				},
+				{
+					"name": "v1 POST Payment - Declined",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bc_mock_base_url}}/v1/billing/payments",
+							"host": [
+								"{{bc_mock_base_url}}"
+							],
+							"path": [
+								"v1",
+								"billing",
+								"payments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "v1 - 402 - payment declined",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "Payment Required",
+							"code": 402,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n  \"errorCode\": \"PAYMENT_DECLINED\",\r\n  \"message\": \"Credit card declined\"\r\n}\r\n"
+						}
+					]
+				}
+			]
+		}
+	]
+}
