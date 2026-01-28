@@ -1,0 +1,541 @@
+{
+  "info": {
+    "_postman_id": "1ef68052-0615-42d0-b0cb-ea07492c43ac",
+    "name": "_PolicyCenter_Mock_Server",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45937416",
+    "_collection_link": "https://go.postman.co/collection/45937416-1ef68052-0615-42d0-b0cb-ea07492c43ac?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "00_Health_Checks",
+      "item": [
+        {
+          "name": "200 - PolicyCenter Healthy",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "200 - PolicyCenter Healthy",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "/health",
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"service\": \"policycenter\",\r\n  \"status\": \"UP\",\r\n  \"timestamp\": \"2026-01-27T10:00:00Z\"\r\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "01_Policies",
+      "item": [
+        {
+          "name": "v1 POST Create Policy - Quoted",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "/v1/policies",
+              "path": [
+                "v1",
+                "policies"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "v1 POST Create Policy - Quoted",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "/v1/policies",
+                  "path": [
+                    "v1",
+                    "policies"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"policyNumber\": \"PA1234567\",\r\n  \"status\": \"QUOTED\",\r\n  \"product\": \"PersonalAuto\",\r\n  \"effectiveDate\": \"2026-01-01\",\r\n  \"expirationDate\": \"2027-01-01\"\r\n}\r\n"
+            }
+          ]
+        },
+        {
+          "name": "v1 GET Policy - Quoted",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "/v1/policies/PA1234567",
+              "path": [
+                "v1",
+                "policies",
+                "PA1234567"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "v1 GET Policy - Quoted",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "/v1/policies/PA1234567",
+                  "path": [
+                    "v1",
+                    "policies",
+                    "PA1234567"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"policyNumber\": \"PA1234567\",\r\n  \"status\": \"QUOTED\",\r\n  \"coverages\": [\r\n    \"LIABILITY\",\r\n    \"COLLISION\",\r\n    \"COMPREHENSIVE\"\r\n  ],\r\n  \"drivers\": 1,\r\n  \"vehicles\": 1\r\n}\r\n"
+            }
+          ]
+        },
+        {
+          "name": "v1 POST Bind Policy - Success",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "/v1/policies/PA1234567/bind",
+              "path": [
+                "v1",
+                "policies",
+                "PA1234567",
+                "bind"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "v1 POST Bind Policy - Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "/v1/policies/PA1234567/bind",
+                  "path": [
+                    "v1",
+                    "policies",
+                    "PA1234567",
+                    "bind"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"policyNumber\": \"PA1234567\",\r\n  \"status\": \"BOUND\",\r\n  \"bindDate\": \"2026-01-01\"\r\n}\r\n"
+            }
+          ]
+        },
+        {
+          "name": "v1 GET Policy - Bound",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "/v1/policies/PA1234567/bind",
+              "path": [
+                "v1",
+                "policies",
+                "PA1234567",
+                "bind"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "v1 GET Policy - Bound",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "/v1/policies/PA1234567/bind",
+                  "path": [
+                    "v1",
+                    "policies",
+                    "PA1234567",
+                    "bind"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"policyNumber\": \"PA1234567\",\r\n  \"status\": \"ACTIVE\",\r\n  \"billingAccountCreated\": true\r\n}\r\n"
+            }
+          ]
+        },
+        {
+          "name": "v1 POST Issue Policy",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "/v1/policies/PC123/issue",
+              "path": [
+                "v1",
+                "policies",
+                "PC123",
+                "issue"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "v1 POST Issue Policy",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "/v1/policies/PA1234567/issue",
+                  "path": [
+                    "v1",
+                    "policies",
+                    "PA1234567",
+                    "issue"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n\"policyNumber\": \"PA1234567\",\r\n\"status\": \"ISSUED\",\r\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02_Endorsement_Flow",
+      "item": [
+        {
+          "name": "201 - Endorsement Started",
+          "request": {
+            "method": "POST",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "201 - Endorsement Started",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "/v1/policies/PC1234567/endorsements",
+                  "path": [
+                    "v1",
+                    "policies",
+                    "PC1234567",
+                    "endorsements"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"endorsementId\": \"END12345\",\r\n  \"policyNumber\": \"PC123456\",\r\n  \"status\": \"IN_PROGRESS\",\r\n  \"effectiveDate\": \"2025-02-01\"\r\n}\r\n"
+            }
+          ]
+        },
+        {
+          "name": "200 - Endorsement Updated",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "/v1/endorsements/END12345",
+              "path": [
+                "v1",
+                "endorsements",
+                "END12345"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 - Endorsement Updated",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "/v1/endorsements/END12345",
+                  "path": [
+                    "v1",
+                    "endorsements",
+                    "END12345"
+                  ]
+                }
+              },
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"endorsementId\": \"END12345\",\r\n  \"status\": \"IN_PROGRESS\",\r\n  \"changesApplied\": true\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "200 - Endorsement Quoted",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "/v1/endorsements/END12345/quote",
+              "path": [
+                "v1",
+                "endorsements",
+                "END12345",
+                "quote"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 - Endorsement Quoted",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "/v1/endorsements/END12345/quote",
+                  "path": [
+                    "v1",
+                    "endorsements",
+                    "END12345",
+                    "quote"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"endorsementId\": \"END12345\",\r\n  \"premiumChange\": 150.00,\r\n  \"currency\": \"CAD\",\r\n  \"status\": \"QUOTED\"\r\n}\r\n"
+            }
+          ]
+        },
+        {
+          "name": "200 - Endorsement Issued",
+          "request": {
+            "method": "POST",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "200 - Endorsement Issued",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "/v1/endorsements/END12345/issue",
+                  "path": [
+                    "v1",
+                    "endorsements",
+                    "END12345",
+                    "issue"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"endorsementId\": \"END12345\",\r\n  \"policyNumber\": \"PC123456\",\r\n  \"status\": \"ISSUED\",\r\n  \"issuedDate\": \"2025-02-01\"\r\n}\r\n"
+            }
+          ]
+        },
+        {
+          "name": "200 - Policy After Endorsement",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "/v1/policies/PC1234567",
+              "path": [
+                "v1",
+                "policies",
+                "PC1234567"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 - Policy After Endorsement",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "/v1/policies/PC1234567",
+                  "path": [
+                    "v1",
+                    "policies",
+                    "PC1234567"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"policyNumber\": \"PC123456\",\r\n  \"status\": \"ISSUED\",\r\n  \"productCode\": \"AUTO\",\r\n  \"effectiveDate\": \"2025-01-01\",\r\n  \"endorsements\": [\r\n    {\r\n      \"endorsementId\": \"END12345\",\r\n      \"effectiveDate\": \"2025-02-01\",\r\n      \"premiumChange\": 150.00\r\n    }\r\n  ]\r\n}\r\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "99_Failure_Scenarios",
+      "item": [
+        {
+          "name": "v1 POST Bind Policy - Billing Failure",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "/v1/policies/PA_BILLING_FAIL/bind",
+              "path": [
+                "v1",
+                "policies",
+                "PA_BILLING_FAIL",
+                "bind"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "v1 POST Bind Policy - Billing Failure",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "/v1/policies/PA_BILLING_FAIL/bind",
+                  "path": [
+                    "v1",
+                    "policies",
+                    "PA_BILLING_FAIL",
+                    "bind"
+                  ]
+                }
+              },
+              "code": 503,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"errorCode\": \"BILLING_INTEGRATION_FAILED\",\r\n  \"message\": \"Unable to create billing account\"\r\n}\r\n"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
