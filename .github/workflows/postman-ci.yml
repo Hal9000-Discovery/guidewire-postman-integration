@@ -1,0 +1,26 @@
+name: PolicyCenter API CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  run-postman-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run PolicyCenter API Tests
+        run: |
+          newman run policycenter-tests/PolicyCenter_API_Tests.postman_collection.json \
+            --env-var pc_base_url=https://9045c893-f038-466b-b352-7888bc441db9.mock.pstmn.io
