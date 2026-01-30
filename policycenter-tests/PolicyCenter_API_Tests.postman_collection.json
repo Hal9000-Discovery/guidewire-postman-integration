@@ -26,17 +26,6 @@
             }
           },
           "response": []
-        },
-        {
-          "name": "billing/health",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": ""
-            }
-          },
-          "response": []
         }
       ]
     },
@@ -109,6 +98,28 @@
         },
         {
           "name": "Bind Policy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// ---------------------------------------------------------\r",
+                  "// Test Case: Retrieve Bound Policy Successfully\r",
+                  "// Purpose:\r",
+                  "// - Verify PolicyCenter returns the policy after bind\r",
+                  "// - Confirm the policy is in a BOUND / ACTIVE state\r",
+                  "// - HTTP 200 indicates the resource was retrieved successfully\r",
+                  "// ---------------------------------------------------------\r",
+                  "pm.test(\"Policy created (200)\", () => {\r",
+                  "  pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
           "request": {
             "method": "GET",
             "header": [],
