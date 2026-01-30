@@ -23,4 +23,4 @@ jobs:
       - name: Run PolicyCenter API Tests
         run: |
           newman run policycenter-tests/PolicyCenter_API_Tests.postman_collection.json \
-            --env-var pc_base_url=https://9045c893-f038-466b-b352-7888bc441db9.mock.pstmn.io
+            -e policycenter-tests/PolicyCenter-Test.postman_environment.json
