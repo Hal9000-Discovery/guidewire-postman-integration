@@ -3,6 +3,8 @@ name: PolicyCenter API CI
 on:
   push:
     branches: [main]
+  release:
+    types: [published]
 
 jobs:
   run-postman-tests:
@@ -24,3 +26,31 @@ jobs:
         run: |
           newman run policycenter-tests/PolicyCenter_API_Tests.postman_collection.json \
             -e policycenter-tests/PolicyCenter-Test.postman_environment.json
+
+
+
+      # Temporary override with hardcoded mock server URL
+      #- name: Run PolicyCenter API Tests
+      #  run: |
+      #    newman run policycenter-tests/PolicyCenter_API_Tests.postman_collection.json \
+      #      --env-var pc_base_url=https://9045c893-f038-466b-b352-7888bc441db9.mock.pstmn.io
+
+  docker-release-tests:
+    name: Run PolicyCenter Tests via Docker (Release)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image for release
+        run: |
+          docker build -t policycenter-tests:${{ github.ref_name }} .
+
+      - name: Run Docker container
+        run: |
+          docker run --rm policycenter-tests:${{ github.ref_name }}
