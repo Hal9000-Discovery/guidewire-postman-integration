@@ -1,0 +1,20 @@
+{
+  "workspace": {
+    "id": "acfc4e35-364f-40e2-b533-490117a2f66b"
+  },
+  "entities": {
+    "environments": [
+      "..\\billingcenter-mock\\BillingCenter_Test.postman_environment.json",
+      "..\\policycenter-tests\\PolicyCenter-Test.postman_environment.json"
+    ],
+    "flows": [],
+    "globals": [],
+    "mocks": [],
+    "specs": [],
+    "collections": [
+      "..\\billingcenter-mock\\_BillingCenter_Mock_Server.postman_collection.json",
+      "..\\policycenter-tests\\PolicyCenter_API_Tests.postman_collection.json",
+      "..\\policycenter-mock\\_PolicyCenter_Mock_Server.postman_collection.json"
+    ]
+  }
+}
