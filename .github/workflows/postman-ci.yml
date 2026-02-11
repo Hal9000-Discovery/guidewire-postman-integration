@@ -1,39 +1,84 @@
 name: PolicyCenter API CI
 
+# ------------------------------------------------------------
+# Trigger Configuration
+# ------------------------------------------------------------
+# This workflow runs:
+# - On push to main
+# - On pull request targeting main
+# - When a GitHub release is published
+# - When manually triggered from the Actions UI
+# ------------------------------------------------------------
+
 on:
   push:
     branches: [main]
+
+  pull_request:
+    branches: [main]
+
   release:
     types: [published]
 
+  workflow_dispatch: # Enables "Run workflow" button in GitHub UI
+
+# ------------------------------------------------------------
+# Job 1: Standard CI Test Execution (Newman)
+# ------------------------------------------------------------
+
 jobs:
   run-postman-tests:
-    runs-on: ubuntu-latest
+    name: Run PolicyCenter API Tests (Newman)
+    runs-on: ubuntu-latest # GitHub-hosted Linux runner
 
     steps:
+      # Step 1: Pull repository code into the runner
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Step 2: Install Node (required for Newman)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18"
 
+      # Step 3: Install Newman CLI globally
       - name: Install Newman
         run: npm install -g newman
 
+      # Step 4: Execute Postman collection using environment file
       - name: Run PolicyCenter API Tests
         run: |
           newman run policycenter-tests/PolicyCenter_API_Tests.postman_collection.json \
-            -e policycenter-tests/PolicyCenter-Test.postman_environment.json
+            -e policycenter-tests/PolicyCenter-Test.postman_environment.json \
+            --reporters cli,json \
+            --reporter-json-export newman-results.json
 
-
-
+      # ------------------------------------------------------------
       # Temporary override with hardcoded mock server URL
-      #- name: Run PolicyCenter API Tests
-      #  run: |
-      #    newman run policycenter-tests/PolicyCenter_API_Tests.postman_collection.json \
-      #      --env-var pc_base_url=https://9045c893-f038-466b-b352-7888bc441db9.mock.pstmn.io
+      # (Used for debugging or validating a specific mock endpoint)
+      # ------------------------------------------------------------
+      # - name: Run PolicyCenter API Tests (Temporary Override)
+      #   run: |
+      #     newman run policycenter-tests/PolicyCenter_API_Tests.postman_collection.json \
+      #       --env-var pc_base_url=https://9045c893-f038-466b-b352-7888bc441db9.mock.pstmn.io \
+      #       --reporters cli,json \
+      #       --reporter-json-export newman-results.json
+
+      # Step 5: Upload Newman JSON results as artifact
+      # This preserves results after the runner shuts down
+      - name: Upload Newman Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-results
+          path: newman-results.json
+
+  # ------------------------------------------------------------
+  # Job 2: Docker-Based Execution for Release Builds
+  # ------------------------------------------------------------
+  # This job only runs when a GitHub release is published.
+  # It builds a Docker image and executes tests inside the container.
+  # ------------------------------------------------------------
 
   docker-release-tests:
     name: Run PolicyCenter Tests via Docker (Release)
@@ -47,10 +92,12 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # Build Docker image tagged with release version
       - name: Build Docker image for release
         run: |
           docker build -t policycenter-tests:${{ github.ref_name }} .
 
+      # Run container and execute tests inside it
       - name: Run Docker container
         run: |
           docker run --rm policycenter-tests:${{ github.ref_name }}
