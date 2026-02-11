@@ -1,0 +1,2 @@
+# Ignore Newman test output
+policycenter-tests/newman-results.json
